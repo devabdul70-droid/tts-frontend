@@ -61,7 +61,7 @@ export default function ScriptPanel({
               })
               .map(([locale, group]) => {
                 const localeLabels = {
-                  'ur-PK': 'Urdu (Pakistan) - Recommended',
+                  'ur-PK': 'Urdu (Pakistan)',
                   'ur-IN': 'Urdu (India)',
                   'hi-IN': 'Hindi (India)',
                   'bn-BD': 'Bangla (Bangladesh)',
@@ -72,6 +72,8 @@ export default function ScriptPanel({
                   'id-ID': 'Indonesian',
                   'ms-MY': 'Malay',
                   'fa-IR': 'Persian (Iran)',
+                  'en-US': 'English (US)',
+                  'en-GB': 'English (UK)',
                 }
                 
                 return (
@@ -80,7 +82,10 @@ export default function ScriptPanel({
                       const name = v.label || v.value || ''
                       let label = name
                       
-                      if (name.includes('Uzma')) label = 'Uzma (Recommended)'
+                      // Clean up Neural/ShortName strings for normal users
+                      label = label.replace(/en-US-|ur-PK-|hi-IN-|bn-BD-|ar-SA-|tr-TR-|id-ID-|ms-MY-|fa-IR-|Neural/g, '')
+                      
+                      if (name.includes('Uzma')) label = 'Uzma (Best for Urdu)'
                       else if (name.includes('Asad')) label = 'Asad (Male)'
                       else if (name.includes('Gul')) label = 'Gul (Female)'
                       else if (name.includes('Salman')) label = 'Salman (Male)'
