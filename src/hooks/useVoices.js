@@ -8,13 +8,22 @@ export function useVoices(apiBase) {
   const refresh = useCallback(() => {
     fetchVoices(apiBase)
       .then((list) => {
-        const englishOnly = list.filter((v) => v.locale?.startsWith('en-'))
-        const chosen = (englishOnly.length ? englishOnly : list).slice(0, 60)
-        setVoices(chosen.map((v) => v.short_name))
+        // Map all voices into objects with label and value
+        const allMapped = list.map((v) => ({
+          label: v.short_name,
+          value: v.short_name,
+          locale: v.locale,
+        }))
+        setVoices(allMapped)
         setUsingFallback(false)
       })
       .catch(() => {
-        setVoices(FALLBACK_VOICES)
+        const fallbacks = FALLBACK_VOICES.map((v) => ({
+          label: v,
+          value: v,
+          locale: v.substring(0, 5),
+        }))
+        setVoices(fallbacks)
         setUsingFallback(true)
       })
   }, [apiBase])

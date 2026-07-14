@@ -42,11 +42,33 @@ export default function ScriptPanel({
             Voice
           </label>
           <select id="voiceSelect" value={voice} onChange={(e) => onVoiceChange(e.target.value)}>
-            {voices.map((name) => (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            ))}
+            {/* Categorize voices by Locale */}
+            {Object.entries(
+              voices.reduce((acc, v) => {
+                const locale = v.locale || 'Other'
+                if (!acc[locale]) acc[locale] = []
+                acc[locale].push(v)
+                return acc
+              }, {})
+            )
+              .sort(([a], [b]) => {
+                // Pin ur-PK to top
+                if (a === 'ur-PK') return -1
+                if (b === 'ur-PK') return 1
+                return a.localeCompare(b)
+              })
+              .map(([locale, group]) => (
+                <optgroup key={locale} label={locale === 'ur-PK' ? 'Urdu (Recommended)' : locale}>
+                  {group.map((v) => (
+                    <option key={v.value} value={v.value}>
+                      {v.label.includes('Uzma') ? 'Uzma (Recommended)' : 
+                       v.label.includes('Asad') ? 'Asad (Male)' : 
+                       v.label.includes('Gul') ? 'Gul (Female)' :
+                       v.label.includes('Salman') ? 'Salman (Male)' : v.label}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
           </select>
         </div>
 

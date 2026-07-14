@@ -7,13 +7,20 @@ export class ApiError extends Error {
 }
 
 export const FALLBACK_VOICES = [
+  'ur-PK-UzmaNeural',
+  'ur-PK-AsadNeural',
+  'ur-IN-GulNeural',
+  'ur-IN-SalmanNeural',
+  'hi-IN-SwaraNeural',
+  'hi-IN-MadhurNeural',
+  'bn-IN-TanishaNeural',
+  'bn-BD-NabanitaNeural',
+  'zh-CN-XiaoxiaoNeural',
+  'ja-JP-NanamiNeural',
+  'ko-KR-SunHiNeural',
   'en-US-AvaNeural',
   'en-US-GuyNeural',
-  'en-US-JennyNeural',
   'en-GB-SoniaNeural',
-  'en-GB-RyanNeural',
-  'en-AU-NatashaNeural',
-  'en-IN-NeerjaNeural',
 ]
 
 function normalizeBase(apiBase) {

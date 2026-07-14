@@ -36,8 +36,8 @@ export default function App() {
 
   // Keep selected voice valid once the real voice list arrives
   useEffect(() => {
-    if (voices.length && !voices.includes(voice)) {
-      setVoice(voices[0])
+    if (voices.length && !voices.some(v => v.value === voice)) {
+      setVoice(voices[0].value)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [voices])
