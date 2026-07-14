@@ -52,23 +52,58 @@ export default function ScriptPanel({
               }, {})
             )
               .sort(([a], [b]) => {
-                // Pin ur-PK to top
+                // Pin priority regions to top
                 if (a === 'ur-PK') return -1
                 if (b === 'ur-PK') return 1
+                if (a === 'hi-IN') return -0.5
+                if (b === 'hi-IN') return 0.5
                 return a.localeCompare(b)
               })
-              .map(([locale, group]) => (
-                <optgroup key={locale} label={locale === 'ur-PK' ? 'Urdu (Recommended)' : locale}>
-                  {group.map((v) => (
-                    <option key={v.value} value={v.value}>
-                      {(v.label || '').includes('Uzma') ? 'Uzma (Recommended)' : 
-                       (v.label || '').includes('Asad') ? 'Asad (Male)' : 
-                       (v.label || '').includes('Gul') ? 'Gul (Female)' :
-                       (v.label || '').includes('Salman') ? 'Salman (Male)' : (v.label || v.value)}
-                    </option>
-                  ))}
-                </optgroup>
-              ))}
+              .map(([locale, group]) => {
+                const localeLabels = {
+                  'ur-PK': 'Urdu (Pakistan) - Recommended',
+                  'ur-IN': 'Urdu (India)',
+                  'hi-IN': 'Hindi (India)',
+                  'bn-BD': 'Bangla (Bangladesh)',
+                  'bn-IN': 'Bangla (India)',
+                  'ar-SA': 'Arabic (Saudi Arabia)',
+                  'ar-AE': 'Arabic (UAE)',
+                  'tr-TR': 'Turkish',
+                  'id-ID': 'Indonesian',
+                  'ms-MY': 'Malay',
+                  'fa-IR': 'Persian (Iran)',
+                }
+                
+                return (
+                  <optgroup key={locale} label={localeLabels[locale] || locale}>
+                    {group.map((v) => {
+                      const name = v.label || v.value || ''
+                      let label = name
+                      
+                      if (name.includes('Uzma')) label = 'Uzma (Recommended)'
+                      else if (name.includes('Asad')) label = 'Asad (Male)'
+                      else if (name.includes('Gul')) label = 'Gul (Female)'
+                      else if (name.includes('Salman')) label = 'Salman (Male)'
+                      else if (name.includes('Swara')) label = 'Swara (Female)'
+                      else if (name.includes('Madhur')) label = 'Madhur (Male)'
+                      else if (name.includes('Nabanita')) label = 'Nabanita (Female)'
+                      else if (name.includes('Tanisha')) label = 'Tanisha (Female)'
+                      else if (name.includes('Zariyah')) label = 'Zariyah (Female)'
+                      else if (name.includes('Fatima')) label = 'Fatima (Female)'
+                      else if (name.includes('Emel')) label = 'Emel (Female)'
+                      else if (name.includes('Gadis')) label = 'Gadis (Female)'
+                      else if (name.includes('Yasmin')) label = 'Yasmin (Female)'
+                      else if (name.includes('Dilara')) label = 'Dilara (Female)'
+                      
+                      return (
+                        <option key={v.value} value={v.value}>
+                          {label}
+                        </option>
+                      )
+                    })}
+                  </optgroup>
+                )
+              })}
           </select>
         </div>
 
