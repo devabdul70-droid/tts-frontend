@@ -101,7 +101,7 @@ export default function App() {
           setStatus('online')
         } else {
           setErrorMessage(
-            `Can't reach the console at ${apiBase} — check the API endpoint above and confirm the backend is running.`
+            "Can't reach the synthesis engine — please confirm the backend is running."
           )
           setStatus('offline')
         }
@@ -129,7 +129,6 @@ export default function App() {
   return (
     <div className="console">
       <TopBar status={status} />
-      <ApiConfigPanel apiBase={apiBase} onConnect={handleConnect} />
       <ScriptPanel
         text={text}
         onTextChange={setText}
