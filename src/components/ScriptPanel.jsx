@@ -61,10 +61,10 @@ export default function ScriptPanel({
                 <optgroup key={locale} label={locale === 'ur-PK' ? 'Urdu (Recommended)' : locale}>
                   {group.map((v) => (
                     <option key={v.value} value={v.value}>
-                      {v.label.includes('Uzma') ? 'Uzma (Recommended)' : 
-                       v.label.includes('Asad') ? 'Asad (Male)' : 
-                       v.label.includes('Gul') ? 'Gul (Female)' :
-                       v.label.includes('Salman') ? 'Salman (Male)' : v.label}
+                      {(v.label || '').includes('Uzma') ? 'Uzma (Recommended)' : 
+                       (v.label || '').includes('Asad') ? 'Asad (Male)' : 
+                       (v.label || '').includes('Gul') ? 'Gul (Female)' :
+                       (v.label || '').includes('Salman') ? 'Salman (Male)' : (v.label || v.value)}
                     </option>
                   ))}
                 </optgroup>
